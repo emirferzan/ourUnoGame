@@ -5,11 +5,13 @@ let socket: Socket | null = null;
 
 export function connectSocket() {
   if (socket) return socket;
-  const url = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
-  socket = io(`${url}/game`, { transports: ['websocket'] });
-  socket.on('connect', () => {
-    // connected
-  });
+
+  // Use explicit URL in dev, same-origin in prod
+  const base =
+    (import.meta.env.VITE_SERVER_URL as string | undefined) || window.location.origin;
+
+  socket = io(`${base}/game`, { transports: ['websocket'] });
+
   socket.on('state', (payload) => {
     useGameStore.getState().setState(payload);
   });
