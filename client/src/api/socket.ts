@@ -5,11 +5,15 @@ let socket: Socket | null = null;
 
 export function connectSocket() {
   if (socket) return socket;
-  const url = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
-  socket = io(`${url}/game`, { transports: ['websocket'] });
-  socket.on('connect', () => {
-    // connected
-  });
+
+  // In dev use the API dev server; in prod use same-origin
+  const isDev = import.meta.env.DEV || window.location.port === '5173';
+  const base =
+    (import.meta.env.VITE_SERVER_URL as string | undefined) ||
+    (isDev ? 'http://localhost:3001' : window.location.origin);
+
+  socket = io(`${base}/game`, { transports: ['websocket'] });
+
   socket.on('state', (payload) => {
     useGameStore.getState().setState(payload);
   });
@@ -17,6 +21,7 @@ export function connectSocket() {
     console.error('server error', err);
     alert(err?.message ?? 'Server error');
   });
+
   return socket;
 }
 
