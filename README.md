@@ -18,3 +18,8 @@ Minimal, production-shaped UNO web app. In-memory state, hot-seat multiplayer (o
 ```bash
 npm install
 npm run dev
+
+
+## Provenance
+
+This repository was ported from an earlier local prototype and a scratch repo. The code was cleaned up, file-separated, and restructured into a minimal monorepo here, so the history starts fresh and focuses on the final MVP shape.
