@@ -4,7 +4,7 @@ import { createGame, applyPlay, applyDraw, applyPass, callUno, publicize } from 
 import { newId } from '../utils/id';
 import { botStep, isBot } from '../domain/bot';
 
-const BOT_DELAY_MS = 1000;     // normal bot think time
+const BOT_DELAY_MS = 1300;     // normal bot think time
 const UNO_GRACE_MS = 1300; 
 
 type Room = {
