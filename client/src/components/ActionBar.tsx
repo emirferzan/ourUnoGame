@@ -1,5 +1,5 @@
 export default function ActionBar({
-  canPass,
+  canPass = false,
   onPass,
   onUNO,
   showUNO,
@@ -7,7 +7,7 @@ export default function ActionBar({
   chosenColor,
   onChooseColor
 }: {
-  canPass: boolean;
+  canPass?: boolean;
   onPass: () => void;
   onUNO: () => void;
   showUNO: boolean;
@@ -17,13 +17,15 @@ export default function ActionBar({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <button
-        className="rounded-lg bg-slate-700 hover:bg-slate-600 px-3 py-2"
-        onClick={onPass}
-        disabled={!canPass}
-      >
-        Pass
-      </button>
+      {canPass && (
+        <button
+          className="rounded-lg bg-slate-700 hover:bg-slate-600 px-3 py-2"
+          onClick={onPass}
+        >
+          Pass
+        </button>
+      )}
+
       <button
         className={`rounded-lg px-3 py-2 ${showUNO ? 'bg-amber-500 hover:bg-amber-400' : 'bg-slate-700 opacity-70'}`}
         onClick={onUNO}
@@ -43,7 +45,7 @@ export default function ActionBar({
               {c}
             </button>
           ))}
-          <span className="text-xs opacity-70">Select color, then play a Wild</span>
+          <span className="text-xs opacity-70">Pick a color, then play Wild</span>
         </div>
       )}
     </div>
